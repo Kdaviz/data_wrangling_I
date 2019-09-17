@@ -9,18 +9,35 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(readxl)
 ```
 
 
-## Load in a dataset
+## Load in litters dataset
 ```{r}
 litters_data = read.csv(file = "./FAS_litters.csv")
 litters_data = janitor:: clean_names(litters_data)
 ```
 
-## Load in 2nd dataset
+## Load in pups dataset
 ```{r}
 pups_data = read.csv(file = "./FAS_pups.csv")
 pups_data = janitor::clean_names(pups_data)
 ```
+
+
+## Read in an excel file
+
+```{r}
+mlb11_data = read_excel(path = "./mlb11.xlsx")
+                  
+
+
+```
+
+## Read in SAS dataset
+```{r}
+pulse_data = haven::read_sas("./public_pulse_data.sas7bdat")
+```
+
 
