@@ -18,3 +18,9 @@ litters_data = read.csv(file = "./FAS_litters.csv")
 litters_data = janitor:: clean_names(litters_data)
 ```
 
+## Load in 2nd dataset
+```{r}
+pups_data = read.csv(file = "./FAS_pups.csv")
+pups_data = janitor::clean_names(pups_data)
+```
+
