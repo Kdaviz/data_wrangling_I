@@ -1,0 +1,63 @@
+---
+title: "Tidy Data"
+author: "Keyanna Davis"
+date: "9/24/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+
+## Wide to long
+
+```{r}
+pulse_data=
+  haven::read_sas("./public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names()
+
+pivot_longer(
+  pulse_data,
+  bdi_score_bl :bdi_score_12m,
+  names_to = "visit",
+  names_prefix = "bdi_score",
+  values_to = "bdi"
+) %>% 
+  mutate(
+    visit = recode(visit, "bl" ="00m")
+  )
+```
+
+## separate in litters
+
+```{r}
+litters_data = 
+  read_csv("./FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  
+  separate( col = group, into = c("dose", "day_of_tx"), 3)
+
+```
+
+
+## go untidy
+
+```{r}
+analysis_result = tibble(
+  group = c("treatment", "treatment", "placebo", "placebo"),
+  time = c("pre", "post", "pre", "post"),
+  mean = c(4, 8, 3.5, 4)
+)
+
+
+pivot_wider(
+  analysis_result,
+  names_from = time,
+  values_from = mean
+)
+```
+
+
